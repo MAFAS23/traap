@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "373462597312",
+    "firebase_url": "https://traap-85850-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "traap-85850",
+    "storage_bucket": "traap-85850.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373462597312:android:856a649b2422ee44ab7725",
+        "android_client_info": {
+          "package_name": "com.comp.traap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwqxb_BOFeeiUSVFv6C9p15_E-CB5Qt6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
