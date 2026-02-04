@@ -95,4 +95,7 @@ implementation("androidx.compose.material:material-icons-extended")
   implementation("com.google.firebase:firebase-analytics")
   implementation("com.google.firebase:firebase-database")
 
+  //webRTC
+  implementation("org.webrtc:google-webrtc:1.0.32006")
+
 }
