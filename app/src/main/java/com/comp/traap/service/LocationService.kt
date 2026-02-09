@@ -63,7 +63,7 @@ class LocationService : Service() {
                                 if (result.isSuccess) {
                                     android.util.Log.d(
                                             TAG,
-                                            "Location sent: ${locationData.latitude}, ${locationData.longitude}"
+                                            "Location sent: ${locationData.latitude}, ${locationData.longitude}, Device: ${locationData.deviceId}"
                                     )
                                 } else {
                                     android.util.Log.e(

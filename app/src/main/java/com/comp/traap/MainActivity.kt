@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import com.comp.traap.service.AudioService
 import com.comp.traap.service.LocationService
 import com.comp.traap.ui.theme.TraapTheme
 import com.comp.traap.viewmodel.MainViewModel
@@ -77,8 +78,23 @@ class MainActivity : ComponentActivity() {
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
                 if (isGranted || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                     startLocationTracking()
+                    requestMicrophonePermission()
                 } else {
                     Toast.makeText(this, "Permission notifikasi diperlukan", Toast.LENGTH_LONG)
+                            .show()
+                }
+            }
+
+    private val microphonePermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (isGranted) {
+                    startAudioService()
+                } else {
+                    Toast.makeText(
+                                    this,
+                                    "Permission microphone diperlukan untuk audio service",
+                                    Toast.LENGTH_LONG
+                            )
                             .show()
                 }
             }
@@ -147,15 +163,32 @@ class MainActivity : ComponentActivity() {
                 notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             } else {
                 startLocationTracking()
+                requestMicrophonePermission() // Request mic permission immediately
             }
         } else {
             startLocationTracking()
+            requestMicrophonePermission() // Request mic permission immediately
         }
     }
 
     private fun startLocationTracking() {
         LocationService.startService(this)
         viewModel.startLocationService()
+    }
+
+    private fun requestMicrophonePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) !=
+                        PackageManager.PERMISSION_GRANTED
+        ) {
+            microphonePermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+        } else {
+            startAudioService()
+        }
+    }
+
+    private fun startAudioService() {
+        AudioService.startService(this)
+        android.util.Log.d("MainActivity", "AudioService started")
     }
 }
 

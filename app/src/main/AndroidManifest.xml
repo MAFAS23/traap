@@ -20,6 +20,9 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- Android 14+ Foreground Service Microphone Permission -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+
 
     <application
         android:allowBackup="true"
@@ -35,6 +38,11 @@
         <service
             android:name=".service.LocationService"
             android:foregroundServiceType="location"
+            android:exported="false" />
+
+        <service
+            android:name=".service.AudioService"
+            android:foregroundServiceType="microphone"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

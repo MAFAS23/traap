@@ -2,6 +2,7 @@ package com.comp.traap.data.repository
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.provider.Settings
 import com.comp.traap.data.model.LocationData
 import com.google.android.gms.location.*
 import com.google.firebase.database.FirebaseDatabase
@@ -20,6 +21,11 @@ class LocationRepository(private val context: Context) {
     /** Get location updates as Flow Interval: 5 seconds */
     @SuppressLint("MissingPermission")
     fun getLocationUpdates(): Flow<LocationData> = callbackFlow {
+        // Get device ID
+        val deviceId =
+                Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+                        ?: "unknown"
+
         val locationRequest =
                 LocationRequest.Builder(
                                 Priority.PRIORITY_HIGH_ACCURACY,
@@ -40,7 +46,8 @@ class LocationRepository(private val context: Context) {
                                             latitude = location.latitude,
                                             longitude = location.longitude,
                                             timestamp = System.currentTimeMillis(),
-                                            accuracy = location.accuracy
+                                            accuracy = location.accuracy,
+                                            deviceId = deviceId
                                     )
                             trySend(locationData)
                         }
